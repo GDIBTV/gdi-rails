@@ -23,7 +23,7 @@
     <!-- dark editor--><link rel="stylesheet" href="reveal.js/lib/css/dark.css">
 
     <!-- If use the PDF print sheet so students can print slides-->
-    
+
     <link rel="stylesheet" href="reveal.js/css/print/pdf.css" type="text/css" media="print">
 
     <!--[if lt IE 9]>
@@ -34,9 +34,9 @@
     <div class="reveal">
       <div class="slides">
         <section>
-          <img src = "images/gdi_logo_badge.png">
+          <img src = "images/gdi_logo_badge.png" alt="Girl Develop It Logo">
           <h3>Intro to Rails</h3>
-          <p>slides: http://cherimarie.github.io/gdi-rails</p>
+          <p>slides: http://gdibtv.github.io/gdi-rails</p>
         </section>
 
         <section>
@@ -52,7 +52,7 @@
           </ul>
           </div>
         </section>
-        
+
         <section>
           <h3>Welcome!</h3>
           <div class = "left-align">
@@ -78,7 +78,7 @@
           </ul>
           </div>
         </section>
-        
+
         <section>
           <h3>What we will cover today</h3>
           <ul>
@@ -89,7 +89,7 @@
 
         <section>
           <h3>Installation Check</h3>
-          <p>Run these commands in the terminal. You should expect them to return a number, like '4.0' or '2.0.0'. 
+          <p>Run these commands in the terminal. You should expect them to return a number, like '4.0' or '2.0.0'.
           <pre><code class="command-line">
 $ ruby -v
 $ rails -v
@@ -126,7 +126,7 @@ $ rails server
           <p>In the terminal, generate the model, then run database migration:</p>
           <pre><code class="command-line">
 $ rails generate model student bio:string full_name:string
-$ rake db:migrate 
+$ rake db:migrate
           </code></pre>
         </section>
 
@@ -138,7 +138,7 @@ $ rake db:migrate
 
           <p class="smalltext">Find them in db/migrate/</p>
 
-          <p class="smalltext">Your app will not work as expected if you have pending migrations. They must be ‘run’ to ensure that your database is properly setup. Run them each as they’re created; run them all when resetting your database or installing the app on a new computer. 
+          <p class="smalltext">Your app will not work as expected if you have pending migrations. They must be ‘run’ to ensure that your database is properly setup. Run them each as they’re created; run them all when resetting your database or installing the app on a new computer.
           rake db:migrate
           </p>
         </section>
@@ -152,7 +152,7 @@ $ rails console
           </code></pre>
           <p>Then, create a Student object:</p>
           <pre><code class="command-line">
-> Student.create(full_name: "Hermione Granger", 
+> Student.create(full_name: "Hermione Granger",
                  bio: "Dedicated student")
           </code></pre>
           <p>Note: close the console by entering the word 'quit'.</p>
@@ -161,7 +161,7 @@ $ rails console
         <section>
         <h3>Rails Console</h3>
         <div class="smalltext">
-        <p>The Rails console is like IRB with your Rails app loaded in. Rad!<p>
+        <p>The Rails console is like IRB with your Rails app loaded in. Rad!</p>
         <p>CRUD Operations:</p></div>
         <pre><code class="command-line">
 #Create
@@ -170,12 +170,12 @@ $ rails console
 #Read
 > Student.all
 > Student.first
-> student = Student.find(1) 
+> student = Student.find(1)
 #Update
 > student.update_attributes(full_name: "Bert Bernard")
 > student.update(bio: "Scrabble champ of Sesame Street")
 #Destroy
-> student.destroy 
+> student.destroy
         </code></pre>
         </section>
 
@@ -194,19 +194,19 @@ $ rails generate controller Students
           <h4>Create a Students Controller</h4>
           <p>In your text editor, open the generated app/controllers/students_controller.rb, and add an ‘index’ method to the class definition:</p>
           <pre><code class="ruby">
-def index 
-  @students = Student.all 
+def index
+  @students = Student.all
 end           </code></pre>
         </section>
 
         <section>
           <h3>Model View Controller Architecture</h3>
           <ul>
-            <li>Models hold logic about objects & interact with db.</li>
+            <li>Models hold logic about objects &amp; interact with db.</li>
             <li>Views are presentation.</li>
             <li>Controllers coordinate the two. </li>
           </ul>
-          <img src="images/mvc.gif" />
+          <img src="images/mvc.gif" alt="Model View Controller Diagram" />
         </section>
 
         <section>
@@ -248,7 +248,7 @@ end           </code></pre>
           </code></pre>
           <p class="smalltext">Ruby is processed, and outputs result to the page: </p>
           <pre><code class="ruby">
-<%= code %> 
+<%= code %>
           </code></pre>
         </section>
 
@@ -256,7 +256,7 @@ end           </code></pre>
           <h3>Step 5</h3>
           <h4>Add routes for Student views</h4>
           <p>In your text editor, open config/routes.rb, and create resource routes for our student controller:</p>
-          <pre><code class="ruby"> 
+          <pre><code class="ruby">
 resources :students
           </code></pre>
         </section>
@@ -265,7 +265,7 @@ resources :students
           <h3>Step 6</h3>
           <h4>Change the root route</h4>
           <p>In config/routes.rb, set the root route to our students#index controller:</p>
-          <pre><code class="ruby"> 
+          <pre><code class="ruby">
 root 'students#index'
           </code></pre>
         </section>
@@ -283,7 +283,7 @@ root 'students#index'
           <h3>What did we just do?</h3>
           <ul>
             <li>Made a new Rails application</li>
-            <li>Added a Student model, with bio & full_name attributes</li>
+            <li>Added a Student model, with bio &amp; full_name attributes</li>
             <li>Added a student record to the database, using Rails Console</li>
             <li>Created a Students controller</li>
             <li>Created a view for the Student controller's index action</li>
@@ -294,16 +294,15 @@ root 'students#index'
 
         <section>
           <h3>Wow.</h3>
-          <img src="images/railsshibe.jpg" />
+          <img src="images/railsshibe.jpg" alt="Rails Shibe"/>
         </section>
 
         <section>
           <h3>Homework</h3>
-          <p>Practice:</p> 
-          <p><a href="http://tutorials.jumpstartlab.com/projects/blogger.html" alt="Jumpstart Labs Blogger Tutorial">Blogger tutorial from Jumpstart Labs</a>, Section I0 only!</p>
+          <p>Practice:</p>
+          <p><a href="http://tutorials.jumpstartlab.com/projects/blogger.html">Blogger tutorial from Jumpstart Labs</a>, Section I0 only!</p>
         </section>
 
-       
       </div>
       <footer>
         <div class="copyright">

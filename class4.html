@@ -23,7 +23,7 @@
     <!-- dark editor--><link rel="stylesheet" href="reveal.js/lib/css/dark.css">
 
     <!-- If use the PDF print sheet so students can print slides-->
-    
+
     <link rel="stylesheet" href="reveal.js/css/print/pdf.css" type="text/css" media="print">
 
     <!--[if lt IE 9]>
@@ -39,11 +39,11 @@
       <div class="slides">
         <!-- Opening slide -->
         <section>
-          <img src = "images/gdi_logo_badge.png">
+          <img src = "images/gdi_logo_badge.png" alt="Girl Develop It Logo">
           <h3>Intro to Rails</h3>
           <p>slides: http://cherimarie.github.io/gdi-rails</p>
         </section>
-        
+
         <!-- Welcome-->
         <section>
           <h3>Welcome!</h3>
@@ -58,7 +58,7 @@
           </ul>
           </div>
         </section>
-        
+
         <section>
           <h3>What we will cover today</h3>
           <ul>
@@ -79,7 +79,7 @@
 <!-- Instructor and students work together through installing and using Devise, including discussion of Gems/Gemfile, Bundler, reading documentation, appraising quality of a gem, link_to in ERB, and before filters. Approx 60 minutes.-->
         <section>
           <h3>Devise</h3>
-          <p><a href="https://github.com/plataformatec/devise" alt="Devise gem">Devise documentation</a></p>
+          <p><a href="https://github.com/plataformatec/devise">Devise documentation</a></p>
           <p>We are going to follow the documentation's instructions, as it is well maintained and accurate.</p>
         </section>
 
@@ -103,19 +103,19 @@
           <p>Tool check!</p>
           <pre><code class="command-line">
 $ heroku --help
-$ git --help             
+$ git --help
           </code></pre>
           <p>If you don't get help menus back, get a TA to help you install Heroku and Git correctly.</p>
         </section>
 
-<!-- BREAK and time for anyone lacking tools to catch up --> 
+<!-- BREAK and time for anyone lacking tools to catch up -->
         <section>
           <h3>Heroku</h3>
-          <p>Let's follow <a href="http://curriculum.railsbridge.org/intro-to-rails/deploying_to_heroku" alt="Railsbridge deploy to heroku instructions">Railsbridge's instructions</a>.</p>
+          <p>Let's follow <a href="http://curriculum.railsbridge.org/intro-to-rails/deploying_to_heroku">Railsbridge's instructions</a>.</p>
           <p>There is one correction- step 4 on the next slide.</p>
         </section>
 
-<!-- Instructor leads students in the steps necessary to deploy an app to Heroku, including discussion on different databases, groups in Gemfile, database configuration, the Heroku command line tools. Approx 25 minutes. --> 
+<!-- Instructor leads students in the steps necessary to deploy an app to Heroku, including discussion on different databases, groups in Gemfile, database configuration, the Heroku command line tools. Approx 25 minutes. -->
         <section>
           <h3>Heroku</h3>
           <p>As of this writing, steps to deploy to Heroku are:</p>
@@ -127,7 +127,7 @@ $ git --help
             <pre><code class="ruby">
 production:
   adapter: postgresql
-  database: db/production            
+  database: db/production
           </code></pre></li>
             <li>Add and commit changes with Git</li>
             <li>Push to heroku</li>
@@ -136,7 +136,7 @@ production:
           </ol>
         </section>
 
-<!-- Seeds. Approx 15 minutes. --> 
+<!-- Seeds. Approx 15 minutes. -->
         <section>
           <h3>Seeds</h3>
           <p>In db/seeds.rb, you can write code that will populate the database. Syntax is exactly like the Rails Console, so it should look familiar to you.</p>
@@ -169,10 +169,10 @@ $ heroku run rake db:seed
 <!-- Questions/resources for further learning. Approx 10 mins. -->
         <section>
           <h3>Questions</h3>
-          <img src="questioncat.jpg" />
+          <img src="questioncat.jpg" alt="Question Cat"/>
         </section>
 
-        <section> 
+        <section>
           <h3>Further Resources</h3>
             <table style="font-size: 24px; line-height: 1.5em;">
               <tr>
@@ -205,8 +205,7 @@ $ heroku run rake db:seed
               </tr>
             </table>
           </section>
-                                                      
-       
+
       </div>
       <footer>
         <div class="copyright">

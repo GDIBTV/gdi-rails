@@ -23,7 +23,7 @@
     <!-- dark editor--><link rel="stylesheet" href="reveal.js/lib/css/dark.css">
 
     <!-- If use the PDF print sheet so students can print slides-->
-    
+
     <link rel="stylesheet" href="reveal.js/css/print/pdf.css" type="text/css" media="print">
 
   </head>
@@ -36,26 +36,26 @@
       <div class="slides">
         <!-- Opening slide -->
         <section>
-          <img src = "images/gdi_logo_badge.png">
+          <img src = "images/gdi_logo_badge.png" alt="Girl Develop It Logo">
           <h3>Intro to Rails</h3>
-          <p>slides: http://cherimarie.github.io/gdi-rails</p>
+          <p>slides: http://gdibtv.github.io/gdi-rails</p>
         </section>
-        
+
         <!-- Welcome-->
         <section>
           <h3>Welcome!</h3>
           <div class = "left-align">
-          <p>Girl Develop It is here to provide affordable and accessible programs to learn software through mentorship and hands-on instruction.</p>
-          <p class ="green">Some "rules"</p>
-          <ul>
-            <li>We are here for you!</li>
-            <li>Every question is important</li>
-            <li>Help each other</li>
-            <li>Have fun</li>
-          </ul>
+            <p>Girl Develop It is here to provide affordable and accessible programs to learn software through mentorship and hands-on instruction.</p>
+            <p class ="green">Some "rules"</p>
+            <ul>
+              <li>We are here for you!</li>
+              <li>Every question is important</li>
+              <li>Help each other</li>
+              <li>Have fun</li>
+            </ul>
           </div>
         </section>
-        
+
         <section>
           <h3>What we will cover today</h3>
           <ul>
@@ -99,7 +99,7 @@
             <li>Parking passes can be paid via credit cards.</li>
             <li>Students can only enroll in seminars for which they have prerequisites.</li>
           </ul>
-          <a href="http://www.allaboutagile.com/writing-good-user-stories/" alt="User stories reading">More info on writing good user stories...</a>
+          <a href="http://www.allaboutagile.com/writing-good-user-stories/">More info on writing good user stories...</a>
         </section>
 
         <section>
@@ -126,9 +126,9 @@
           <!-- Change these models, etc. to reflect your class' requirements-->
           <h4>Generating Models</h4>
           <pre><code class="command-line">
-$ rails generate model Artist full_name:string 
+$ rails generate model Artist full_name:string
 $ rails generate model Song title:string artist:belongs_to
-$ rails generate model Vote song:belongs_to            
+$ rails generate model Vote song:belongs_to
           </code></pre>
         </section>
 
@@ -163,7 +163,7 @@ $ rake db:migrate
             <li>They use a Ruby DSL so you don't have to write SQL.</li>
             <li>Each migration modifies the database's schema, which you can see in your db/schema.rb file.</li>
           </ul>
-          <a href="http://guides.rubyonrails.org/migrations.html" alt="Rails guide to migrations">Migrations in more detail...</a>
+          <a href="http://guides.rubyonrails.org/migrations.html">Migrations in more detail...</a>
         </section>
 
         <section>
@@ -193,17 +193,17 @@ end
           <p>The second part of building data associations is in the models.</p>
           <pre><code class="ruby">
 class Artist &lt; ActiveRecord::Base
-  has_many :songs 
+  has_many :songs
 end
 
 class Song &lt; ActiveRecord::Base
   belongs_to :artist
-  has_many :votes 
+  has_many :votes
 end
 
 class Vote &lt; ActiveRecord::Base
   belongs_to :song
-end            
+end
           </code></pre>
         </section>
 
@@ -219,46 +219,54 @@ end
             <li>has_and_belongs_to_many</li>
           </ul>
           <p>Note: the last two are not used very often.</p>
-          <a href="http://guides.rubyonrails.org/association_basics.html" alt="rails guides association basics">Associations in more detail...</a>
+          <a href="http://guides.rubyonrails.org/association_basics.html">Associations in more detail...</a>
         </section>
 
         <section>
           <h3>Data Associations</h3>
           <h4>belongs_to</h4>
           <p>This sets up either a one-to-one or one-to-many model with another mdoel.</p>
-          <li>If order <strong>belongs to</strong> customer, each order can be assigned to exactly <strong>one</strong> customer.</li>
-          <li>In the order table, there will be an entry for 'customer_id: integer'.</li>
-          <li>The order model will say 'belongs_to :customer'. Note that 'customer' is singular!</li>
-          <li>The customer model will need to either 'have one' or 'have many' orders.</li>
+          <ul>
+            <li>If order <strong>belongs to</strong> customer, each order can be assigned to exactly <strong>one</strong> customer.</li>
+            <li>In the order table, there will be an entry for 'customer_id: integer'.</li>
+            <li>The order model will say 'belongs_to :customer'. Note that 'customer' is singular!</li>
+            <li>The customer model will need to either 'have one' or 'have many' orders.</li>
+          </ul>
         </section>
 
         <section>
           <h3>Data Associations</h3>
           <h4>has_one</h4>
           <p>This sets up a one-to-one connection with a another model.</p>
-          <li>If supplier <strong>has one</strong> account, each supplier can have exactly <strong>one</strong> associated account.</li>
-          <li>In the supplier table, there will not be a reference to accounts.</li>
-          <li>The supplier model will say 'has_one :account'. Note that 'account' is singular!</li>
-          <li>The account model will need to 'belong to' supplier.</li>
+          <ul>
+            <li>if supplier <strong>has one</strong> account, each supplier can have exactly <strong>one</strong> associated account.</li>
+            <li>in the supplier table, there will not be a reference to accounts.</li>
+            <li>the supplier model will say 'has_one :account'. note that 'account' is singular!</li>
+            <li>the account model will need to 'belong to' supplier.</li>
+          </ul>
         </section>
 
         <section>
           <h3>Data Associations</h3>
           <h4>has_many</h4>
           <p>This sets up a one-to-many connection with another model.</p>
-          <li>If customer <strong>has many</strong> orders, each customer may be associated with zero or more orders.</li>
-          <li>In the customer table, there will not be a reference to orders.</li>
-          <li>The customer model will say 'has_many :orders'. Note that 'orders' is plural!</li>
-          <li>Orders will need to 'belong to' customer.</li>
+          <ul>
+            <li>If customer <strong>has many</strong> orders, each customer may be associated with zero or more orders.</li>
+            <li>In the customer table, there will not be a reference to orders.</li>
+            <li>The customer model will say 'has_many :orders'. Note that 'orders' is plural!</li>
+            <li>Orders will need to 'belong to' customer.</li>
+          </ul>
         </section>
 
         <section>
           <h3>Data Associations</h3>
           <h4>has_many :through</h4>
           <p>This sets up a many-to-many connection to another model, through a third model.</p>
-          <li>A patient can have many physicians <strong>through</strong> an appointment and a physician can have many patients <strong>through</strong> an appointment.</li>
-          <li>In the appointments table, there will be an entry for both physician_id and patient_id.</li>
-          <li>The appointment model will say 'belongs_to :physician, belongs_to :patient', and the patient model will say 'has_many :appointments, has_many :physicians, through: :appointments'.</li>
+          <ul>
+            <li>A patient can have many physicians <strong>through</strong> an appointment and a physician can have many patients <strong>through</strong> an appointment.</li>
+            <li>In the appointments table, there will be an entry for both physician_id and patient_id.</li>
+            <li>The appointment model will say 'belongs_to :physician, belongs_to :patient', and the patient model will say 'has_many :appointments, has_many :physicians, through: :appointments'.</li>
+          </ul>
         </section>
 
         <section>
@@ -279,14 +287,11 @@ end
         <section>
           <h3>Homework</h3>
           <ul>
-          <li>Do the first three levels of <a href="http://railsforzombies.org/levels/1" alt="rails for zombies tutorial">Rails for Zombies</a></li>
+          <li>Do the first three levels of <a href="http://railsforzombies.org/levels/1">Rails for Zombies</a></li>
           <li>Spend some time in the Rails Console with your Best Song App, creating, destroying, and updating database records.</li>
           </ul>
         </section>
 
-
-
-       
       </div>
       <footer>
         <div class="copyright">
@@ -297,7 +302,6 @@ end
     </div>
 
 
-   
     <script src="reveal.js/lib/js/head.min.js"></script>
     <script src="reveal.js/js/reveal.min.js"></script>
 
