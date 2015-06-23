@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="overwrite.css">
 
     <!-- For syntax highlighting -->
-    <!-- light editor<link rel="stylesheet" href="lib/css/light.css">-->
-    <!-- dark editor--><link rel="stylesheet" href="reveal.js/lib/css/dark.css">
+    <link rel="stylesheet" href="reveal.js/lib/css/light.css">
+    <!-- <link rel="stylesheet" href="reveal.js/lib/css/dark.css"> -->
 
     <!-- If use the PDF print sheet so students can print slides-->
 
@@ -29,6 +29,9 @@
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
+    <script>
+      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script>
   </head>
   <body>
     <div class="reveal">
@@ -60,7 +63,7 @@
           <ul>
             <li>Who are you?</li>
             <li>What do you hope to get out of the class?</li>
-            <li>Who is your favorite fictional animal?</li>
+            <li>Who is your favorite Dinosaur?</li>
           </ul>
           </div>
         </section>
@@ -70,8 +73,8 @@
           <div class = "left-align">
           <ul>
             <li>An open-source, full stack web application framework</li>
-            <li>Written in the Ruby language</li>
-            <li>Released in 2004</li>
+            <li>Written in the <a href="https://www.ruby-lang.org/en/">Ruby language</a></li>
+            <li>First Released in 2004</li>
             <li>Created by David Heinemeier Hansson (DHH)</li>
             <li>Makes many kinds of apps much simpler to write</li>
             <li>Has a thriving community, tons of resources</li>
@@ -82,17 +85,54 @@
         <section>
           <h3>What we will cover today</h3>
           <ul>
-            <li>Check installation of tools</li>
-            <li>Build and explore a Rails app</li>
+            <li>Familiarize with Cloud9 IDE</li>
+            <li>Build your first Rails app!</li>
           </ul>
         </section>
 
         <section>
-          <h3>Installation Check</h3>
-          <p>Run these commands in the terminal. You should expect them to return a number, like '4.0' or '2.0.0'.
+          <h3>Log In to Cloud9 IDE</h3>
+          <p>
+            https://c9.io/web/login
+          </p>
+          <img src="images/cloud9_login.png" alt="login to cloud9" />
+        </section>
+
+        <section>
+        <h3>Connect Cloud9 to Github</h3>
+          <p>
+            If you have a Github account, connect
+          </p>
+          <img src="images/cloud9_github_connect.png" alt="connect cloud9 to github" />
+        </section>
+
+        <section>
+          <h3>Create a New Workspace</h3>
+          <img src="images/create_new_workspace.png" alt="create workspace" />
+        </section>
+
+        <section>
+          <h3>Choose a Project Template</h3>
+          <p>
+            Pick "RailsTutorial.org"<br>
+          </p>
+          <img src="images/choose_workspace_template.png" alt="choose template" />
+        </section>
+
+        <section>
+          <h3>Hello Cloud9!</h3>
+          <img src="images/hello_cloud9.png" alt="cloud9 IDE homepage" />
+        </section>
+
+        <section>
+          <h3>Check Your Ruby and Rails Install</h3>
+          <p>Run these commands in the terminal.
           <pre><code class="command-line">
-$ ruby -v
-$ rails -v
+  $ ruby -v
+  > /usr/local/rvm/rubies/ruby-2.2.1/bin/ruby
+
+  $ rails -v
+  > Rails 4.2.1
           </code></pre>
         </section>
 
@@ -100,18 +140,33 @@ $ rails -v
           <h3>Make a Rails app!</h3>
           <p>Navigate to a project directory in your terminal, then run:</p>
           <pre><code class="command-line">
-$ rails new TestApp
-$ cd TestApp
-$ rails server
+$ rails new test_app
+$ cd test_app
+$ rails server --binding $IP --port $PORT
           </code></pre>
-          <p>Now, visit localhost:3000 in your browser to view your app!</p>
+          <p>Visit in the browser to view your app!</p>
+          <pre>
+            <code>
+              http://&lt;workspacename&gt;-&lt;username&gt;.c9.io
+              https://rails-tutorial-tester-joshuaburke.c9.io/
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Check it Out!</h3>
+          <img src="images/welcome_aboard.png" alt="welcome aboard you're riding rails!" />
         </section>
 
         <section>
           <h3>Make a Rails App</h3>
           <h4>What just happened?</h4>
-          <p>We told Rails to build a new app called TestApp, then navigated into it and started a server so we could view it live in the browser. Sweet.</p>
-          <p>Note: you can shut the server down by entering Ctrl-c</p>
+          <ol>
+            <li>We told Rails to build a new app called <strong>test_app</strong></li>
+            <li>Then navigated into it in the command line</li>
+            <li>Started a server so we could view it live</li>
+            <li>Sweet, awesome job!</li>
+          </ol>
         </section>
 
         <section>
@@ -123,11 +178,31 @@ $ rails server
         <section>
           <h3>Step 1</h3>
           <h4>Add a Student Model</h4>
-          <p>In the terminal, generate the model, then run database migration:</p>
-          <pre><code class="command-line">
+          <p>In the terminal, generate the model</p>
+          <pre>
+            <code class="command-line">
 $ rails generate model student bio:string full_name:string
+>     invoke  active_record
+      create    db/migrate/20150623144213_create_students.rb
+      create    app/models/student.rb
+      invoke    test_unit
+      create      test/models/student_test.rb
+      create      test/fixtures/students.yml
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Then Migrate the Database</h3>
+          <pre>
+            <code class="command-line">
 $ rake db:migrate
-          </code></pre>
+> == 20150623144213 CreateStudents: migrating =============
+  -- create_table(:students)
+    -> 0.0015s
+  == 20150623144213 CreateStudents: migrated (0.0016s) ====
+            </code>
+          </pre>
         </section>
 
         <section>
@@ -182,11 +257,26 @@ $ rails console
         <section>
           <h3>Step 3</h3>
           <h4>Create a Students Controller</h4>
-          <p>In the terminal:</p>
+          <p class="smalltext">
+            In the terminal
+          </p>
           <pre><code class="command-line">
 $ rails generate controller Students
+>     create  app/controllers/students_controller.rb
+      invoke  erb
+      create    app/views/students
+      invoke  test_unit
+      create    test/controllers/students_controller_test.rb
+      invoke  helper
+      create    app/helpers/students_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/students.coffee
+      invoke    scss
+      create      app/assets/stylesheets/students.scss
           </code></pre>
-          <p>Generating this controller also creates an app/views/students directory. </p>
+          <p class="smalltext">Generating this controller also creates an app/views/students directory. </p>
         </section>
 
         <section>
@@ -218,9 +308,9 @@ end           </code></pre>
 
         <section>
           <h3>MVC Explanation</h3>
-          <p class="smalltext">An app this basic doesn’t really have any logic to put in the model. The controller can handle basic database actions like finding Student.all. </p>
+          <p>An app this basic doesn’t really have any logic to put in the model. The controller can handle basic database actions like finding Student.all. </p>
 
-          <p class="smalltext">Every view that your app has must have an associated controller method. This method will usually pass data to the view, but not necessarily. </p>
+          <p>Every view that your app has must have an associated controller method. This method will usually pass data to the view, but not necessarily. </p>
         </section>
 
         <section>
