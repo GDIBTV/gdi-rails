@@ -14,18 +14,18 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-     <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
     <link rel="stylesheet" href="reveal.js/css/theme/gdicool.css" id="theme">
     <link rel="stylesheet" href="overwrite.css">
 
     <!-- For syntax highlighting -->
-    <!-- light editor<link rel="stylesheet" href="lib/css/light.css">-->
-    <!-- dark editor--><link rel="stylesheet" href="reveal.js/lib/css/dark.css">
+    <link rel="stylesheet" href="reveal.js/lib/css/light.css">
+    <!-- <link rel="stylesheet" href="reveal.js/lib/css/dark.css"> -->
 
     <!-- If use the PDF print sheet so students can print slides-->
 
     <link rel="stylesheet" href="reveal.js/css/print/pdf.css" type="text/css" media="print">
-
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </head>
 
   <body>
@@ -144,7 +144,7 @@ $ rails generate model Vote song:belongs_to
           <pre><code class="ruby">
 def change
   create_table :artists do |t|
-    t.string :name
+    t.string :full_name
     t.string :current_hairstyle
     t.timestamps
   end
@@ -168,11 +168,11 @@ $ rake db:migrate
 
         <section>
           <h3>Migrations</h3>
-          <p>It would be pretty cool if songs has an attribute called 'optimal volume'. Let's create a migration to add that to the table. Run this in the terminal:</p>
+          <p class="smalltext">It would be pretty cool if songs has an attribute called 'optimal volume'. Let's create a migration to add that to the table. Run this in the terminal:</p>
           <pre><code class="command-line">
 $ rails generate migration AddOptimalVolumetoSongs
           </code></pre>
-          <p>And this will be the migration file it generates, with your additions:</p>
+          <p class="smalltext">And this will be the migration file it generates, with your additions:</p>
           <pre><code class="ruby">
 class AddOptimalVolumetoSongs &lt; ActiveRecord::Migration
   def change
@@ -180,7 +180,7 @@ class AddOptimalVolumetoSongs &lt; ActiveRecord::Migration
   end
 end
           </code></pre>
-          <p>Sweet. Now run the migration ('rake db:migrate') so the schema is up to date.</p>
+          <p class="smalltext">Sweet. Now run the migration ('rake db:migrate') so the schema is up to date.</p>
         </section>
 
         <section>
@@ -236,6 +236,12 @@ end
 
         <section>
           <h3>Data Associations</h3>
+          <h4>belongs_to</h4>
+          <a href="http://guides.rubyonrails.org/v3.2.21/association_basics.html#the-belongs_to-association"><img src="images/belongs_to.png" alt="belongs to association" /></a>
+        </section>
+
+        <section>
+          <h3>Data Associations</h3>
           <h4>has_one</h4>
           <p>This sets up a one-to-one connection with a another model.</p>
           <ul>
@@ -244,6 +250,19 @@ end
             <li>the supplier model will say 'has_one :account'. note that 'account' is singular!</li>
             <li>the account model will need to 'belong to' supplier.</li>
           </ul>
+        </section>
+
+        <section>
+          <h3>Data Associations</h3>
+          <h4>has_one</h4>
+          <pre>
+            <code>
+              class Supplier < ActiveRecord::Base
+                has_one :account
+              end
+            </code>
+          </pre>
+          <a href="http://guides.rubyonrails.org/v3.2.21/association_basics.html#the-has_one-association"><img src="images/has_one.png" alt="has one association" /></a>
         </section>
 
         <section>
@@ -260,6 +279,19 @@ end
 
         <section>
           <h3>Data Associations</h3>
+          <h4>has_many</h4>
+          <pre>
+            <code>
+              class Customer < ActiveRecord::Base
+                has_many :orders
+              end
+            </code>
+          </pre>
+          <a href="http://guides.rubyonrails.org/v3.2.21/association_basics.html#the-has_many-association"><img src="images/has_many.png" alt="has many association" /></a>
+        </section>
+
+        <section>
+          <h3>Data Associations</h3>
           <h4>has_many :through</h4>
           <p>This sets up a many-to-many connection to another model, through a third model.</p>
           <ul>
@@ -271,13 +303,104 @@ end
 
         <section>
           <h3>Data Associations</h3>
-          <h4>Index?</h4>
+          <h4>has_many :through</h4>
+          <pre>
+            <code>
+              class Physician < ActiveRecord::Base
+                has_many :appointments
+                has_many :patients, :through => :appointments
+              end
+
+              class Appointment < ActiveRecord::Base
+                belongs_to :physician
+                belongs_to :patient
+              end
+
+              class Patient < ActiveRecord::Base
+                has_many :appointments
+                has_many :physicians, :through => :appointments
+              end
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Data Associations</h3>
+          <h4>has_many :through</h4>
+          <a href="http://guides.rubyonrails.org/v3.2.21/association_basics.html#the-has_many-through-association"><img src="images/has_many_through.png" alt="has many through association" /></a>
+        </section>
+
+        <section>
+          <h3>Data Associations</h3>
+          <h4>has_and_belongs_to_many</h4>
+          <p class="smalltext">
+            A has_and_belongs_to_many association creates a direct many-to-many connection with another model, with no intervening model. For example, if your application includes assemblies and parts, with each assembly having many parts and each part appearing in many assemblies, you could declare the models this way:
+          </p>
+          <pre>
+            <code class="ruby">
+              class Assembly < ActiveRecord::Base
+                has_and_belongs_to_many :parts
+              end
+
+              class Part < ActiveRecord::Base
+                has_and_belongs_to_many :assemblies
+              end
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Data Associations</h3>
+          <h4>has_and_belongs_to_many (habtm)</h4>
+          <a href="http://guides.rubyonrails.org/v3.2.21/association_basics.html#the-has_and_belongs_to_many-association"><img src="images/habtm.png" alt="has and belongs to many association" /></a>
+        </section>
+
+        <section>
+          <h3>Data Associations</h3>
+          <h4>Choosing between has_many :through and habtm</h4>
+          <br>
+          <ol>
+            <li>Set up a has_many :through relationship if:</li>
+            <ul>
+              <li>
+                You need to work with the relationship model as an independent entity
+              </li>
+            </ul>
+            <br>
+            <li>Set up a has_and_belongs_to_many relationship if:</li>
+            <ul>
+              <li>
+                You don’t need to do anything with the relationship model
+              </li>
+            </ul>
+          </ol>
+          <br><br>
+          <p>
+            You will need to remember to setup the intermediate table in the database
+          </p>
+        </section>
+
+        <section>
+          <h3>Data Associations</h3>
+          <h4>Index</h4>
           <p>A database index is a data structure that improves the speed of data retrieval at the cost of more storage space. An index is a copy of the selected columns, which can be searched very efficiently.</p>
         </section>
 
         <section>
+          <h3>Data Associations</h3>
+          <h4>Index</h4>
+          <img src="images/table_index_diagram.jpg" alt="table index diagram" />
+        </section>
+
+        <section>
           <h3>Summary</h3>
-          <p>Today, we planned out our application by writing user stories and discussing the architecture. Then, we generated the models that we'll be using, and hooked up the associations properly.</p>
+          <p>Today we did this:</p>
+          <ul>
+            <li>Planned our application by writing user stories </li>
+            <li>Discussing the architecture</li>
+            <li>Then, we generated the model</li>
+            <li>And hooked up the associations</li>
+          </ul>
         </section>
 
         <section>
@@ -285,10 +408,24 @@ end
         </section>
 
         <section>
-          <h3>Homework</h3>
+          <h3>Homework 1</h3>
+          <p class="smalltext"><a href="http://railsforzombies.org/levels/1">Complete Rails for Zombies</a>
+          </p>
+          <img src="images/rails_for_zombies.png" alt="rails for zombies logo" />
+        </section>
+
+        <section>
+          <h3>Homework 2</h3>
+          <p>
+            Use Rails Console with your Best Song App
+          </p>
+          <p>Try some commands</p>
           <ul>
-          <li>Do the first three levels of <a href="http://railsforzombies.org/levels/1">Rails for Zombies</a></li>
-          <li>Spend some time in the Rails Console with your Best Song App, creating, destroying, and updating database records.</li>
+            <li>Create records</li>
+            <li>Search for records</li>
+            <li>Update record attributes</li>
+            <li>Delete records</li>
+            <li>Associate some record with another one</li>
           </ul>
         </section>
 
