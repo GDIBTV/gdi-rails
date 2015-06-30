@@ -14,13 +14,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-     <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
     <link rel="stylesheet" href="reveal.js/css/theme/gdicool.css" id="theme">
     <link rel="stylesheet" href="overwrite.css">
 
     <!-- For syntax highlighting -->
-    <!-- light editor<link rel="stylesheet" href="lib/css/light.css">-->
-    <!-- dark editor--><link rel="stylesheet" href="reveal.js/lib/css/dark.css">
+    <link rel="stylesheet" href="reveal.js/lib/css/light.css">
+    <!-- dark editor<link rel="stylesheet" href="reveal.js/lib/css/dark.css"> -->
 
     <!-- If use the PDF print sheet so students can print slides-->
 
@@ -29,6 +29,7 @@
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </head>
 
   <body>
@@ -72,19 +73,73 @@
         <section>
           <h3>Homework Review</h3>
           <h5>Rails Console</h5>
-          <p>Questions?</p>
+          <ol>
+            <li>Rails for Zombies</li>
+            <ul>
+              <li>Problems?</li>
+            </ul>
+            <li>Rails Console Experimentation</li>
+            <ul>
+              <li>Questions?</li>
+            </ul>
+          </ol>
         </section>
 
         <section>
           <h3>Controllers &amp; Views</h3>
-          <p>Action View and Action Controller are the two major components of Action Pack. In Rails, web requests are handled by Action Pack, which splits the work into a controller part (performing the logic) and a view part (rendering a template). Typically, Action Controller will be concerned with communicating with the database and performing CRUD actions where necessary. Action View is then responsible for compiling the response.</p>
+          <p class="textsmall">
+            Action View and Action Controller get requests and respond with HTML.
+          </p>
+          <p class="textsmall">
+            In Rails, web requests are handled by Action Pack, which splits the work into a controller part (performing the logic) and a view part (rendering a template).
+          </p>
+          <p class="textsmall">
+            Action Controller is concerned with communicating with the database and performing CRUD actions where necessary. Action View is then responsible for compiling the HTML response.
+          </p>
+        </section>
+
+
+        <section>
+          <h3>Simple HTTP Request</h3>
+          <img src="images/simple_rest_diagram.png" title="https://windyroad.com.au/static/images/image01.png" alt="simple HTTP diagram" />
+        </section>
+
+        <section>
+          <h3>HTTP Model-View-Contoller Request</h3>
+          <img src="images/http_mvc_request.png" title="https://msdn.microsoft.com/en-us/magazine/dd942833.aspx" alt="simple REST MVC diagram" />
+        </section>
+
+        <section>
+          <h3>Rails Request</h3>
+          <img src="images/rails_rest_request_diagram.png" title="http://paulhan221.tumblr.com/post/114731592051/rails-http-requests-for-mvc" alt="Rails request diagram" />
+        </section>
+
+        <section>
+          <h3>Detailed Rails Request</h3>
+          <img src="images/detailed_rails_request_diagram.png" title="https://github.com/sergey-alekseev/bsu-on-rails/wiki/Week-2-%C2%B7-MVC-architecture,-components-of-Rails" alt="Detailed Rails request diagram" />
         </section>
 
   <!-- Controllers -->
         <section>
           <h3>What is a controller?</h3>
-          <p>After routing has determined which controller to use for a request, your controller is responsible for making sense of the request and producing the appropriate output (action and view).</p>
+          <p>After the routes.rb has determined which controller to use for a request, your controller is responsible for making sense of the request and producing the appropriate output (action and view).</p>
           <p><a href="http://guides.rubyonrails.org/action_controller_overview.html">More info...</a></p>
+
+          <pre>
+            <code>
+    class ArtistsController < ApplicationController
+      # route get 'songs#index' would direct here
+      def index
+        @artists = Artist.all
+      end
+      # route 'songs#show' would direct here
+      def show
+        @artist = Artist.find(params[:id])
+        @songs = @artist.songs
+      end
+    end
+            </code>
+          </pre>
         </section>
 
         <section>
@@ -127,7 +182,7 @@ $ rails generate controller Ratings
 
         <section>
           <h3>Let's Develop It!</h3>
-          <p>Build your own Rating#new controller method. It will need to create a new Rating and assign it to an instance variable, then find the song and artist by params, and assign them to instance variables. </p>
+          <p>Build your own Song#new controller method. It will need to create a new Song and assign it to an instance variable, then find the artist by params, and assign them to instance variables. </p>
         </section>
 
         <section>
@@ -136,8 +191,7 @@ $ rails generate controller Ratings
 # in app/controllers/ratings_controller.rb
 
 def new
-  @rating = Rating.new
-  @song = Song.find(params[:song_id])
+  @song = Song.new
   @artist = Artist.find(params[:artist_id])
 end
           </code></pre>
@@ -149,6 +203,23 @@ end
           <p>The Rails router recognizes URLs and dispatches them to a controller's action. It can also generate paths and URLs, avoiding the need to hardcode strings in your views.</p>
           <p>Since ratings belong to songs, and songs belong to artists, we need nested routes.</p>
           <p><a href="http://guides.rubyonrails.org/routing.html">More info...</a></p>
+          <pre>
+            <code class="ruby">
+  # view all routes http://<app-name-here>/rails/info/routes
+  # in app/config/routes.rb
+  resources :artists do
+    resources :songs
+  end
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Routing View Page</h3>
+          <p>
+            http://&lt;app-name-here&gt;/rails/info/routes
+          </p>
+          <img src="images/rails_routes_view_page.png" alt="rails routes view" />
         </section>
 
 <!-- Views -->
