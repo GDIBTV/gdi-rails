@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="overwrite.css">
 
     <!-- For syntax highlighting -->
-    <!-- light editor<link rel="stylesheet" href="lib/css/light.css">-->
-    <!-- dark editor--><link rel="stylesheet" href="reveal.js/lib/css/dark.css">
+    <link rel="stylesheet" href="reveal.js/lib/css/light.css">
+    <!-- dark editor<link rel="stylesheet" href="reveal.js/lib/css/dark.css"> -->
 
     <!-- If use the PDF print sheet so students can print slides-->
 
@@ -29,6 +29,7 @@
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </head>
 
   <body>
@@ -41,7 +42,7 @@
         <section>
           <img src = "images/gdi_logo_badge.png" alt="Girl Develop It Logo">
           <h3>Intro to Rails</h3>
-          <p>slides: http://cherimarie.github.io/gdi-rails</p>
+          <p>slides: http://gdibtv.github.io/gdi-rails</p>
         </section>
 
         <!-- Welcome-->
@@ -62,18 +63,150 @@
         <section>
           <h3>What we will cover today</h3>
           <ul>
-            <li>User Authentication with Devise Gem</li>
-            <li>Deploying to Heroku</li>
+            <li>More Rails Forms</li>
+            <li>Rubygems</li>
             <li>Seed Data (time permitting)</li>
           </ul>
         </section>
 
         <section>
+          <h3>Rails Forms</h3>
+          <h5>Forms are great!</h5>
+          <p>
+            Rails provides a variety of ways to make forms
+          </p>
+          <pre>
+            <code>
+  <%= form_tag do %>
+    Form contents
+  <% end %>
+            </code>
+          </pre>
+          <pre>
+            <code>
+&lt;form accept-charset=&quot;UTF-8&quot; action=&quot;/&quot; method=&quot;post&quot;&gt;
+  &lt;input name=&quot;utf8&quot; type=&quot;hidden&quot; value=&quot;&amp;#x2713;&quot; /&gt;
+  &lt;input name=&quot;authenticity_token&quot; type=&quot;hidden&quot; value=&quot;J7CBxfHalt49OSHp27hblqK20c9PgwJ108nDHX/8Cts=&quot; /&gt;
+  Form contents
+&lt;/form&gt;
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Rails Forms</h3>
+          <h5>Simple Form Helpers</h5>
+          <pre>
+            <code class="ruby">
+  <%= check_box_tag(:like_song) %>
+  <%= label_tag(:like_song, "I like this song") %>
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Rails Forms</h3>
+          <h5>Simple Form Output</h5>
+          <pre>
+            <code>
+  &lt;input id=&quot;like_song&quot; name=&quot;like_song&quot; type=&quot;checkbox&quot; value=&quot;1&quot; /&gt;
+  &lt;label for=&quot;like_song&quot;&gt;I like this song&lt;/label&gt;
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Rails Forms</h3>
+          <h5>Other Helpers</h5>
+          <pre>
+            <code>
+  <%= text_area_tag(:message, "Hi, nice site", size: "24x6") %>
+  <%= password_field_tag(:password) %>
+  <%= hidden_field_tag(:parent_id, "5") %>
+  <%= search_field(:user, :name) %>
+  <%= telephone_field(:user, :phone) %>
+  <%= date_field(:user, :born_on) %>
+  <%= datetime_field(:user, :meeting_time) %>
+  <%= datetime_local_field(:user, :graduation_day) %>
+  <%= month_field(:user, :birthday_month) %>
+  <%= week_field(:user, :birthday_week) %>
+  <%= url_field(:user, :homepage) %>
+  <%= email_field(:user, :address) %>
+  <%= color_field(:user, :favorite_color) %>
+  <%= time_field(:task, :started_at) %>
+  <%= number_field(:product, :price, in: 1.0..20.0, step: 0.5) %>
+  <%= range_field(:product, :discount, in: 1..100) %>
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Rails Forms</h3>
+          <h5>Model Forms</h5>
+          <pre>
+            <code class="ruby">
+  # Form Helper
+  <%= text_field(:artist, :full_name) %>
+
+  # Form Output
+  &lt;input id=&quot;artist_full_name&quot; name=&quot;artist[full_name]&quot; type=&quot;text&quot; value=&quot;ACDC&quot;/&gt;
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Rails Forms</h3>
+          <h5>Nested Resource Forms</h5>
+
+          <pre>
+            <code>
+    <%= form_for [ @artist, @song ] do |f| %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+      <%= f.check_box :like_song %>
+
+      <%= f.submit 'Submit' %>
+
+    <% end %>
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Rails Forms</h3>
+          <h5>More About Forms</h5>
+          <img src="images/checkbox_form_helper.png" alt="checkbox form helper output" />
+        </section>
+
+        <section>
+          <h3>Rails Forms</h3>
+          <h5>Nested Model Forms Output</h5>
+          <pre>
+            <code>
+&lt;h2&gt;Suggest a New Song&lt;/h2&gt;
+&lt;form class=&quot;new_song&quot; id=&quot;new_song&quot; action=&quot;/artists/1/songs&quot; accept-charset=&quot;UTF-8&quot; method=&quot;post&quot;&gt;
+  &lt;input name=&quot;utf8&quot; type=&quot;hidden&quot; value=&quot;&amp;#x2713;&quot; /&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;authenticity_token&quot; value=&quot;K/DYug/8kXlH6G8L9Zym9KMsFnZ6hdINC66EfCSlxKLnJhTikezTC6QelJHqjynAHkl4lEYRAVUutXD2fMBycQ==&quot; /&gt;
+  &lt;label for=&quot;song_title&quot;&gt;
+  Title
+  &lt;/label&gt;
+  &lt;input type=&quot;text&quot; name=&quot;song[title]&quot; id=&quot;song_title&quot; /&gt;
+  &lt;input type=&quot;submit&quot; name=&quot;commit&quot; value=&quot;Submit&quot; /&gt;
+&lt;/form&gt;
+            </code>
+          </pre>
+        </section>
+
+        <section>
           <h3>Gems</h3>
-          <p><strong>Gems</strong> are ruby libraries or programs. They're simultaneously the best and worst thing about Rails.</p>
-          <p>You can add all sorts of amazing functionality to your app with very little effort via a gem, but then you have to deal with versioning and conflicts between gems.</p>
-          <p>Gems are specified in your app's Gemfile. Running 'bundle install' ensures you have all gems available locally, and updates your Gemfile.lock file.</p>
-          <p>It is very common to break up your Gemfile into groups that correspond to Rails environments: test, development, production.</p>
+          <ol>
+            <li><strong>Gems</strong> are ruby "libraries"</li>
+            <li>They provide functionality to your app with little effort</li>
+            <li>Gems are specified in your app's <strong>Gemfile</strong></li>
+            <li>Running 'bundle install' ensures you have all gems available locally, and updates your Gemfile.lock file</li>
+            <li>Gemfile groups correspond to Rails environments: test, development, production</li>
+          </ol>
         </section>
 
 <!-- Instructor and students work together through installing and using Devise, including discussion of Gems/Gemfile, Bundler, reading documentation, appraising quality of a gem, link_to in ERB, and before filters. Approx 60 minutes.-->
